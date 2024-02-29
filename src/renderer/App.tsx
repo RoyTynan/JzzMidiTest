@@ -5,7 +5,7 @@ import { IMidiConfiguration, IMidiDeviceInfo } from '../Common/model';
 import { ipc } from '.';
 import { FileChannelName } from '../Common/constants';
 
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const parseMidiInfo = (jInfo  : any) : IMidiConfiguration => {
   const inputsArray: IMidiDeviceInfo[] = [];
   const outputsArray: IMidiDeviceInfo[] = [];
@@ -42,42 +42,42 @@ const parseMidiInfo = (jInfo  : any) : IMidiConfiguration => {
   return dev;
 }
 
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const App: React.FC = () => {
 
   const [midiInfo, setMidiInfo] = useState<IMidiConfiguration>();
 
-  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  //request the midi json data  on start up
+  //~~~~~~~~~~~~~~~
+  // on start up request the midi info 
   useEffect(() => {
     ipc.requestMidiFile(FileChannelName);
   }, []);
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  //recieve the midi json object sent from main.ts
+  // receive the midi json object sent from main.ts
   ipc.sendMidiFile(FileChannelName, (_event: any , jzzInfo :  any) => {
-    setMidiInfo(parseMidiInfo(jzzInfo));
+    const info = parseMidiInfo(jzzInfo);
+    setMidiInfo(info);
   });
 
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // just render the midi outputs in this example
   const renderMidiOutputPorts = () => {
     if (midiInfo) {
       return midiInfo.outputs.map((midiOutPort, index) => (
-        <div key={index}>
+        <div className="midiInfo" key={index}>
           {midiOutPort.id + " : " + midiOutPort.name  + " : " + midiOutPort.version}
         </div>
       ));
     }
-    return null; 
   };
   
-
   return (
     <div>    
      {renderMidiOutputPorts()}
     </div>
   );
 }
-
 
 export default App;
 

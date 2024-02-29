@@ -11,6 +11,7 @@ import JZZ from 'jzz';
 
 import { FileChannelName, FileChannelNameEvent } from '../Common/constants';
 
+
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -61,8 +62,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1920,
-    height: 1880,
+    width: 1200,
+    height: 800,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
@@ -103,38 +104,42 @@ const createWindow = async () => {
   new AppUpdater();
 };
 
-/*******************************************************************************************
- * Add JZZ MIDI event listeners...
- */
 
+//*******************************************************************************************
+// Jzz implementation 
+
+// ipc channel that receives a request from the React front end on start up
 ipcMain.on(FileChannelName, (_event) => {
-  getMidiInfoAsync();
+  getMidiInfo();
 })
 
-
-function getInfoAsync() {
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function getMidiInfoAcync() {
   return new Promise((resolve) => {
-    const jzzInfo = JZZ().info();
-    resolve(jzzInfo);
+    try{
+      const jzzInfo = JZZ().info();
+      resolve(jzzInfo);
+    }
+    catch(e) {
+      console.error(e)
+    }
+
   });
 }
 
-async function getMidiInfo() {
-  const jzzInfo = await getInfoAsync();
-  console.log(jzzInfo);
-  return jzzInfo;
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-async function getMidiInfoAsync(){
-  const jzzInfo = await getMidiInfo() 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function getMidiInfo(){
+  //wait for the midi info to be available
+  const jzzInfo = await getMidiInfoAcync() 
+  //console.log(jzzInfo);
   if(mainWindow){
-    //send the midi info to react so as to render the info
+    //send the midi info to React so as to show the info
     mainWindow.webContents.send(FileChannelName, FileChannelNameEvent, jzzInfo); 
   }
 }
 
-//**************************************************************************************************** */
+//*******************************************************************************************
+
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even

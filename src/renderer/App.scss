@@ -4,10 +4,14 @@ body {
   height: 100vh;
   background :rgb(152, 175, 214);
   font-family: sans-serif;
-  font-size: 14px; 
+  font-size: 16px; 
   overflow-y: hidden;
   overflow-x: hidden;
   justify-content: center;
   align-items: center;
 
+}
+
+.midiInfo{
+  padding: 10px;
 }
