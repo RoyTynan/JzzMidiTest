@@ -1,4 +1,4 @@
-## A simple JazzSoft, Electronn , React, Typescript application
+## A simple JazzSoft, Electron , React, Typescript application
 
 The main purpose of this app is to create the packaging of Electron and JazzSoft into an executable application.<br>
 
