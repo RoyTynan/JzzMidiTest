@@ -20,8 +20,8 @@ Start the app in the `dev` environment:
 npm run start
 ```
 
-OR<br>
-if you are using Visual Studio Code you can run this app via launch.json from Debug<br>
+OR<br><br>
+If you are using Visual Studio Code you can run this app via launch.json from Debug<br>
 
 ## Packaging for Production
 
