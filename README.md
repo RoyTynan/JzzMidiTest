@@ -1,7 +1,7 @@
 ## A simple JazzSoft, Electron , React, Typescript application
 
 The main purpose of this app is to create the packaging of Electron and JazzSoft into an executable application.<br>
-It just reads the available midi devices, it does not send or receive midi
+This simple app just reads the available midi devices, it does not send or receive midi
 
 ## Install
 
