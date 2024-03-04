@@ -27,6 +27,7 @@ If you are using Visual Studio Code you can run this app via launch.json from De
 ## Packaging for Production
 
 Electron via Electron React Boilerplate under development, the dev server loads packages from node_modules as normal.<br>
+But native modules are packaged differently<br>
 When Electron is packaged for release with Electron React Boilerplate it creates a folder in the project named 'release'.<br>
 In the folder release are all the build artifacts etc. In a sub-folder named 'app' there is another node_modules and another  package.json file.<br>
 Within this package.json is a "dependencies".
